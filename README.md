@@ -1,26 +1,31 @@
 # Amazon Product Scout
 
-A Jungle Scout-inspired Amazon product research workspace. This project is an independent implementation and does not copy Jungle Scout proprietary code or data.
+A research dashboard inspired by the workflow of Amazon product-research platforms.
 
 ## Current MVP
-- Product research dashboard UI
-- Marketplace and product filters
-- Opportunity-analysis workspace
-- FBA profit calculator
+- Amazon marketplace selector
+- Product research workspace
+- Opportunity-score interface
+- FBA profit and margin calculator
 - Product comparison table
+- Dark SaaS dashboard theme
 
-## Next phases
-1. Amazon SP-API integration
-2. Keepa integration for historical price/rank data
-3. Keyword research and competitor analysis
-4. Opportunity scoring engine
-5. AI product recommendations
-6. Authentication, saved searches, exports, and production deployment
+## Roadmap
+1. Amazon catalog/data provider integration
+2. Keepa integration for price/rank history
+3. Keyword research and search-volume data provider
+4. Product/ASIN analyzer
+5. Competitor analysis
+6. Opportunity scoring engine
+7. AI product insights
+8. User accounts, saved products and exports
+9. Production deployment
+
+## Important
+The app does not reproduce Jungle Scout's proprietary data or implementation. Live metrics require properly licensed/API-accessible data sources.
 
 ## Run locally
 ```bash
 pip install -r requirements.txt
 streamlit run app.py
 ```
-
-Live Amazon metrics are not included yet; the current sample values are placeholders until the data APIs are connected.
