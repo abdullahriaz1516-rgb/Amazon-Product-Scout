@@ -1,1 +1,2 @@
-__version__ = "0.2.0"
+"""Amazon Product Scout core package."""
+__version__ = "0.3.0"
