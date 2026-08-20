@@ -5,6 +5,7 @@ from scout.scoring import opportunity_score
 from scout.calculator import fba_profit
 
 st.set_page_config(page_title="Amazon Product Scout", page_icon="🔎", layout="wide", initial_sidebar_state="expanded")
+
 st.title("🔎 Amazon Product Scout")
 st.caption("Amazon product research workspace • Demo mode + API-ready architecture")
 
@@ -23,19 +24,24 @@ products = search_products(query, min_price, max_price, max_reviews, min_rating)
 for p in products:
     p["Opportunity"] = opportunity_score(p)
 
+# Dashboard summary
+if products:
+    best = max(products, key=lambda x: x["Opportunity"])
+    k1, k2, k3, k4 = st.columns(4)
+    k1.metric("Top Opportunity", f"{best['Opportunity']}/100")
+    k2.metric("Products Found", len(products))
+    k3.metric("Avg. Price", f"${sum(x['price'] for x in products)/len(products):.2f}")
+    k4.metric("Avg. Reviews", f"{sum(x['reviews'] for x in products)/len(products):,.0f}")
+
+st.divider()
 tab1, tab2, tab3, tab4 = st.tabs(["🔎 Product Research", "💰 Profit Calculator", "📊 Comparison", "⚙️ Data & API"])
 
 with tab1:
     st.subheader(f"Opportunity results — {marketplace}")
     if products:
-        best = max(products, key=lambda x: x["Opportunity"])
-        c = st.columns(4)
-        c[0].metric("Top Opportunity", f"{best['Opportunity']}/100")
-        c[1].metric("Products Found", len(products))
-        c[2].metric("Avg. Price", f"${sum(x['price'] for x in products)/len(products):.2f}")
-        c[3].metric("Avg. Reviews", f"{sum(x['reviews'] for x in products)/len(products):,.0f}")
         df = pd.DataFrame(products).rename(columns={"title":"Product","price":"Price","reviews":"Reviews","rating":"Rating","monthly_sales":"Est. Monthly Sales","monthly_revenue":"Est. Revenue","competition":"Competition","Opportunity":"Opportunity Score"})
-        st.dataframe(df[["Product","Price","Reviews","Rating","Est. Monthly Sales","Est. Revenue","Competition","Opportunity Score"]].sort_values("Opportunity Score", ascending=False), use_container_width=True, hide_index=True)
+        display_cols = ["Product","Price","Reviews","Rating","Est. Monthly Sales","Est. Revenue","Competition","Opportunity Score"]
+        st.dataframe(df[display_cols].sort_values("Opportunity Score", ascending=False), use_container_width=True, hide_index=True)
     else:
         st.warning("No products match the current filters. Try widening the price/review range.")
 
@@ -56,7 +62,10 @@ with tab2:
 
 with tab3:
     st.subheader("Side-by-side product comparison")
-    st.dataframe(pd.DataFrame(products).sort_values("Opportunity", ascending=False), use_container_width=True, hide_index=True)
+    if products:
+        st.dataframe(pd.DataFrame(products).sort_values("Opportunity", ascending=False), use_container_width=True, hide_index=True)
+    else:
+        st.info("No products available for comparison.")
 
 with tab4:
     st.subheader("Data connection status")
