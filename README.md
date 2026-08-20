@@ -1,31 +1,40 @@
 # Amazon Product Scout
 
-A research dashboard inspired by the workflow of Amazon product-research platforms.
+A standalone Amazon product-research dashboard inspired by the workflow of commercial research tools.
 
-## Current MVP
+## Included now
 - Amazon marketplace selector
-- Product research workspace
-- Opportunity-score interface
-- FBA profit and margin calculator
+- Keyword/niche research filters
+- Demo product dataset
+- Transparent Opportunity Score (0–100)
+- Demand, reviews, rating and competition signals
+- FBA profit, margin and ROI calculator
 - Product comparison table
-- Dark SaaS dashboard theme
+- API-ready data architecture
+- Secret-safe configuration plan
 
-## Roadmap
-1. Amazon catalog/data provider integration
-2. Keepa integration for price/rank history
-3. Keyword research and search-volume data provider
-4. Product/ASIN analyzer
-5. Competitor analysis
-6. Opportunity scoring engine
-7. AI product insights
-8. User accounts, saved products and exports
-9. Production deployment
+## Planned production integrations
+- Amazon SP-API for authorized catalog/product data
+- Keepa API for historical price/rank data
+- Licensed keyword/search-volume provider
+- ASIN analyzer and competitor analysis
+- AI product insights
+- Saved products, watchlists and exports
+- Authentication and production deployment
 
 ## Important
-The app does not reproduce Jungle Scout's proprietary data or implementation. Live metrics require properly licensed/API-accessible data sources.
+The application does not copy Jungle Scout's proprietary implementation or data. Live marketplace metrics require properly licensed/API-accessible data. Demo values are placeholders and should not be used for purchasing decisions.
 
 ## Run locally
 ```bash
 pip install -r requirements.txt
 streamlit run app.py
 ```
+
+## Environment secrets
+Configure these outside Git:
+- `AMAZON_SP_CLIENT_ID`
+- `AMAZON_SP_CLIENT_SECRET`
+- `AMAZON_REFRESH_TOKEN`
+- `KEEPA_API_KEY`
+- `OPENAI_API_KEY`
